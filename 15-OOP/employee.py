@@ -9,15 +9,17 @@ class Employee:
     def print_info(self):
         print('Employee info: {} - {} - {}'.format(self.id, self.name, self.salary))    
     
-    def add_employee(e):
-        Employee.employees.append(e)
+    @classmethod
+    def add_employee(cls, e):
+        cls.employees.append(e)
 
-    def remove_employee(id):
-        Employee.employees = [ee for ee in Employee.employees if ee.id != id]
+    @classmethod
+    def remove_employee(cls, id):
+        cls.employees = [ee for ee in cls.employees if ee.id != id]
 
-    @staticmethod
-    def list_employees():
-        for ee in Employee.employees:
+    @classmethod
+    def list_employees(cls):
+        for ee in cls.employees:
             print('---------- Employee infomation -----------')
             print('name: {}'.format(ee.name))
             print('id: {}'.format(ee.id)) 
