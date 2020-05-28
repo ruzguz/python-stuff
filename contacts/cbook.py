@@ -1,3 +1,5 @@
+import csv
+
 class Contact:
     
     def __init__(self, name, phone, email):
@@ -16,6 +18,12 @@ class Contact:
     def get_name(self):
         return self._name
 
+    def get_phone(self):
+        return self._phone
+    
+    def get_email(self):
+        return self._email
+
     def set_name(self, name):
         self._name = name
     
@@ -29,10 +37,20 @@ class ContactBook:
     
     def __init__(self):
         self._contacts = []
+    
+    def _save(self):
+        with open('contacts.csv', 'w') as f:
+            writer = csv.writer(f)
+            writer.writerow( ('name', 'phone', 'email') )
+
+            for contact in self._contacts:
+                writer.writerow( (contact.get_name(), contact.get_phone(), contact.get_email()) )
+
 
     def add(self, name, phone, email):
         new_contact = Contact(name, phone, email)
         self._contacts.append(new_contact)
+        self._save()
 
     def list_contacts(self):
         for contact in self._contacts:
@@ -50,6 +68,7 @@ class ContactBook:
 
     def remove(self, name):
         self._contacts = [c for c in self._contacts if c.get_name() != name]
+        self._save()
 
     def update(self, name, new_name, new_phone, new_email):
         for contact in self._contacts:
@@ -60,4 +79,5 @@ class ContactBook:
                     contact.set_phone(new_phone)
                 if new_email != '':
                     contact.set_email(new_email)
+        self._save()
         
